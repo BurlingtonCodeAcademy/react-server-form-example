@@ -1,24 +1,45 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from "react";
+
 import './App.css';
 
 function App() {
+const [firstName, setFirstName] = useState("")
+const [lastName, setLastName] = useState("")
+const [emailAddress, setEmailAddress] = useState("")
+const [message, setMessage] = useState("")
+
+const [isSubmitted, setIsSubmitted] = useState(false)
+
+console.log(firstName)
+
+
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    await fetch('http://localhost:5000', {
+      method: 'POST',
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        emailAddress,
+        message
+      })
+    })
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<>
+<form onSubmit = {handleSubmit}>
+<input type = "text" name = "firstName" id = "first-name" onChange = {(event)=> {setFirstName(event.target.value)}} />
+<input type = "text" name = "lastName" id = "last-name" onChange = {(event)=> {setLastName(event.target.value)}}/>
+<input type = "text" name = "emailAddress" id = "email-address" onChange = {(event)=> {setEmailAddress(event.target.value)}}  />
+<input type = "text" name = "message" id = "message" onChange = {(event)=> {setMessage(event.target.value)}} />
+<button type = "submit">Submit!</button>
+  
+</form> 
+
+</>
   );
 }
 
