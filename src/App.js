@@ -16,7 +16,8 @@ console.log(firstName)
 
   async function handleSubmit(event) {
     event.preventDefault()
-    await fetch('http://localhost:5000', {
+   let response = await fetch('http://localhost:5000', {
+      headers: { "content-type": "application/json" }, //THIS IS REQUIRED 8D!!!
       method: 'POST',
       body: JSON.stringify({
         firstName,
@@ -25,6 +26,7 @@ console.log(firstName)
         message
       })
     })
+    console.log(response)
   }
 
 
